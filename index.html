@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bombenattentäter Spiel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-area">
+            <div id="bomber" class="bomber">
+                <div class="head">
+                    <div class="mask">
+                        <div class="eye left-eye"></div>
+                        <div class="eye right-eye"></div>
+                    </div>
+                </div>
+                <div class="body">
+                    <div class="jacket">
+                        <div class="vest">
+                            <div class="c4 c4-1">
+                                <div class="c4-text">C4</div>
+                                <div class="wires"></div>
+                            </div>
+                            <div class="c4 c4-2">
+                                <div class="c4-text">C4</div>
+                                <div class="wires"></div>
+                            </div>
+                            <div class="c4 c4-3">
+                                <div class="c4-text">C4</div>
+                                <div class="wires"></div>
+                            </div>
+                            <div class="detonator">
+                                <div class="led"></div>
+                                <div class="button"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arms">
+                    <div class="arm left-arm" id="left-arm">
+                        <div class="hand"></div>
+                    </div>
+                    <div class="arm right-arm" id="right-arm">
+                        <div class="hand"></div>
+                    </div>
+                </div>
+                <div class="legs">
+                    <div class="leg left-leg" id="left-leg">
+                        <div class="boot"></div>
+                    </div>
+                    <div class="leg right-leg" id="right-leg">
+                        <div class="boot"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="explosion-container">
+                <div id="explosion"></div>
+                <div id="shockwave"></div>
+                <div id="smoke"></div>
+                <div id="fireball"></div>
+                <div id="sparks"></div>
+                <div id="debris"></div>
+            </div>
+            
+            <div id="blood-container"></div>
+            <div id="organs-container"></div>
+            <div id="body-parts-container"></div>
+            <div id="dog-container"></div>
+            
+            <div id="explosion-text" class="hidden">YOU WON!</div>
+            <button id="reset-button" class="hidden">Again?</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
