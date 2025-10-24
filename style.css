@@ -1,0 +1,707 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#game-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    overflow: hidden;
+}
+
+/* Bomber Styling - sehr detailliert */
+.bomber {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 240px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    z-index: 10;
+}
+
+.bomber:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* Kopf mit detaillierter Maske */
+.bomber .head {
+    position: absolute;
+    top: 0;
+    left: 45px;
+    width: 50px;
+    height: 65px;
+    background: #2C2C2C;
+    border-radius: 20px 20px 15px 15px;
+    z-index: 5;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.bomber .mask {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    width: 40px;
+    height: 35px;
+    background: #1A1A1A;
+    border-radius: 15px;
+    z-index: 6;
+    overflow: hidden;
+}
+
+.bomber .eye {
+    position: absolute;
+    width: 12px;
+    height: 8px;
+    background: #333;
+    border-radius: 50%;
+    top: 12px;
+}
+
+.bomber .left-eye {
+    left: 8px;
+}
+
+.bomber .right-eye {
+    right: 8px;
+}
+
+/* Körper */
+.bomber .body {
+    position: absolute;
+    top: 65px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+    z-index: 4;
+}
+
+/* Militärjacke */
+.bomber .jacket {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #556B2F, #3A4A21);
+    border-radius: 10px;
+    z-index: 3;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.4);
+}
+
+/* Weste */
+.bomber .vest {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 84px;
+    height: 84px;
+    background: #654321;
+    border: 3px solid #8B4513;
+    border-radius: 8px;
+    z-index: 4;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+}
+
+/* Sehr erkennbare C4-Pakete */
+.bomber .c4 {
+    width: 22px;
+    height: 28px;
+    background: linear-gradient(45deg, #C4A484, #E5D3B3);
+    border: 2px solid #8B7355;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bomber .c4-text {
+    font-size: 8px;
+    font-weight: bold;
+    color: #8B0000;
+    text-shadow: 0 0 2px white;
+    z-index: 1;
+}
+
+.bomber .wires {
+    position: absolute;
+    bottom: -8px;
+    width: 100%;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        #FF0000,
+        #FF0000 2px,
+        #800000 2px,
+        #800000 4px
+    );
+    border-radius: 2px;
+}
+
+.bomber .c4-1 {
+    transform: rotate(-3deg);
+}
+
+.bomber .c4-2 {
+    transform: rotate(1deg);
+}
+
+.bomber .c4-3 {
+    transform: rotate(4deg);
+}
+
+/* Detaillierter Zünder */
+.bomber .detonator {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 18px;
+    height: 12px;
+    background: #2C2C2C;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 2px;
+}
+
+.bomber .led {
+    width: 6px;
+    height: 6px;
+    background: #FF0000;
+    border-radius: 50%;
+    animation: blink-fast 0.5s infinite;
+}
+
+.bomber .button {
+    width: 4px;
+    height: 4px;
+    background: #FF4500;
+    border-radius: 50%;
+}
+
+@keyframes blink-fast {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Arme */
+.bomber .arms {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 140px;
+    height: 80px;
+    z-index: 2;
+}
+
+.bomber .arm {
+    position: absolute;
+    width: 25px;
+    height: 70px;
+    background: linear-gradient(to bottom, #556B2F, #3A4A21);
+    border-radius: 12px;
+}
+
+.bomber .left-arm {
+    left: 0;
+    transform: rotate(15deg);
+}
+
+.bomber .right-arm {
+    right: 0;
+    transform: rotate(-15deg);
+}
+
+.bomber .hand {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 15px;
+    background: #D2B48C;
+    border-radius: 8px 8px 4px 4px;
+}
+
+/* Hose und Beine */
+.bomber .legs {
+    position: absolute;
+    top: 165px;
+    left: 30px;
+    width: 80px;
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 3;
+}
+
+.bomber .leg {
+    width: 30px;
+    height: 75px;
+    background: linear-gradient(to bottom, #36454F, #2C3A42);
+    border-radius: 0 0 10px 10px;
+    position: relative;
+}
+
+.bomber .boot {
+    position: absolute;
+    bottom: -8px;
+    width: 35px;
+    height: 12px;
+    background: #1A1A1A;
+    border-radius: 5px;
+    left: -2px;
+}
+
+/* Explosionseffekte */
+#explosion-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+#explosion {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff4500 0%, #ff0000 30%, transparent 70%);
+    z-index: 21;
+}
+
+#shockwave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    z-index: 22;
+}
+
+#fireball {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, transparent 70%);
+    z-index: 23;
+}
+
+#smoke {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(100, 100, 100, 0.3) 0%, rgba(50, 50, 50, 0.1) 40%, transparent 70%);
+    z-index: 19;
+}
+
+#sparks {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    z-index: 24;
+}
+
+.spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ff8c00;
+    border-radius: 50%;
+    filter: blur(1px);
+}
+
+/* Blut-Effekte - MASSIV */
+#blood-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.blood-splatter {
+    position: absolute;
+    background: #8B0000;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    opacity: 0.9;
+    filter: blur(1px);
+}
+
+.blood-stain {
+    position: absolute;
+    background: #8B0000;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    opacity: 0.7;
+    filter: blur(2px);
+}
+
+.blood-drip {
+    position: absolute;
+    background: #8B0000;
+    border-radius: 0 0 10px 10px;
+    opacity: 0.8;
+    filter: blur(1px);
+}
+
+.blood-stream {
+    position: absolute;
+    background: linear-gradient(to bottom, #8B0000, #600000);
+    opacity: 0.7;
+    filter: blur(1px);
+    border-radius: 2px;
+}
+
+.blood-pool {
+    position: absolute;
+    background: radial-gradient(ellipse, #8B0000 0%, #600000 70%);
+    opacity: 0.8;
+    filter: blur(3px);
+    border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
+}
+
+.blood-spray {
+    position: absolute;
+    background: #8B0000;
+    border-radius: 50%;
+    opacity: 0.7;
+    filter: blur(2px);
+}
+
+/* Organe */
+#organs-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 16;
+}
+
+.organ {
+    position: absolute;
+    filter: blur(0.5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    z-index: 16;
+}
+
+.heart {
+    background: #8B0000;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+.lung {
+    background: #CD5C5C;
+    border-radius: 40% 40% 40% 40% / 60% 60% 40% 40%;
+}
+
+.intestine {
+    background: #F08080;
+    border-radius: 30% 30% 30% 30% / 60% 60% 40% 40%;
+}
+
+.bone {
+    background: #F5F5DC;
+    border-radius: 20% 20% 20% 20% / 50% 50% 50% 50%;
+}
+
+.brain {
+    background: #FFB6C1;
+    border-radius: 50% 50% 40% 40% / 60% 60% 40% 40%;
+}
+
+.stomach {
+    background: #FFA07A;
+    border-radius: 45% 55% 55% 45% / 55% 45% 55% 45%;
+}
+
+/* Körperteile */
+#body-parts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 17;
+}
+
+.body-part {
+    position: absolute;
+    filter: blur(0.5px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    z-index: 17;
+}
+
+.arm-part {
+    background: linear-gradient(to bottom, #556B2F, #3A4A21);
+    border-radius: 12px;
+}
+
+.leg-part {
+    background: linear-gradient(to bottom, #36454F, #2C3A42);
+    border-radius: 10px;
+}
+
+.head-part {
+    background: #2C2C2C;
+    border-radius: 20px 20px 15px 15px;
+}
+
+.torso-part {
+    background: linear-gradient(to bottom, #556B2F, #3A4A21);
+    border-radius: 10px;
+}
+
+/* Hund */
+#dog-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 18;
+}
+
+.dog {
+    position: absolute;
+    width: 80px;
+    height: 50px;
+    z-index: 18;
+}
+
+.dog-body {
+    position: absolute;
+    width: 60px;
+    height: 30px;
+    background: #8B4513;
+    border-radius: 20px;
+    top: 10px;
+    left: 10px;
+}
+
+.dog-head {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: #8B4513;
+    border-radius: 50%;
+    top: 5px;
+    left: 45px;
+}
+
+.dog-ear {
+    position: absolute;
+    width: 15px;
+    height: 20px;
+    background: #654321;
+    border-radius: 50%;
+}
+
+.dog-ear-left {
+    top: 0;
+    left: 5px;
+    transform: rotate(-30deg);
+}
+
+.dog-ear-right {
+    top: 0;
+    right: 5px;
+    transform: rotate(30deg);
+}
+
+.dog-snout {
+    position: absolute;
+    width: 20px;
+    height: 15px;
+    background: #D2B48C;
+    border-radius: 50%;
+    bottom: 5px;
+    left: 8px;
+}
+
+.dog-eye {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: black;
+    border-radius: 50%;
+    top: 10px;
+}
+
+.dog-eye-left {
+    left: 8px;
+}
+
+.dog-eye-right {
+    right: 8px;
+}
+
+.dog-tail {
+    position: absolute;
+    width: 25px;
+    height: 8px;
+    background: #8B4513;
+    border-radius: 4px;
+    top: 15px;
+    left: -15px;
+    transform: rotate(-30deg);
+}
+
+.dog-leg {
+    position: absolute;
+    width: 8px;
+    height: 20px;
+    background: #654321;
+    border-radius: 4px;
+    bottom: 0;
+}
+
+.dog-leg-front-left { left: 15px; }
+.dog-leg-front-right { left: 35px; }
+.dog-leg-back-left { left: 45px; }
+.dog-leg-back-right { left: 65px; }
+
+.dog-eating {
+    animation: dog-eating 0.3s infinite alternate;
+}
+
+@keyframes dog-eating {
+    0% { transform: translateY(0px) rotate(0deg); }
+    100% { transform: translateY(-2px) rotate(2deg); }
+}
+
+/* Retro Text */
+#explosion-text {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 72px;
+    font-weight: bold;
+    color: black;
+    text-shadow: 
+        4px 4px 0 red,
+        8px 8px 0 darkred;
+    z-index: 25;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    animation: text-flicker 0.2s infinite alternate, text-shake 0.1s infinite;
+}
+
+@keyframes text-flicker {
+    0% { opacity: 0.8; transform: translateX(-50%) scale(0.98); }
+    100% { opacity: 1; transform: translateX(-50%) scale(1.02); }
+}
+
+@keyframes text-shake {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    25% { transform: translateX(-50%) translateY(-2px); }
+    75% { transform: translateX(-50%) translateY(2px); }
+}
+
+/* Reset Button */
+#reset-button {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px 40px;
+    font-size: 24px;
+    background: linear-gradient(45deg, #ff4500, #ff6347);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 25;
+    transition: all 0.3s;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+#reset-button:hover {
+    background: linear-gradient(45deg, #ff6347, #ff4500);
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+}
+
+.hidden {
+    display: none;
+}
+
+/* Extrem starker Bildschirm Wackeln Effekt */
+@keyframes screen-shake {
+    0% { transform: translate(0, 0) rotate(0) scale(1); }
+    10% { transform: translate(-25px, -15px) rotate(-3deg) scale(1.05); }
+    20% { transform: translate(20px, 12px) rotate(3deg) scale(0.95); }
+    30% { transform: translate(-18px, -10px) rotate(-2deg) scale(1.03); }
+    40% { transform: translate(15px, 8px) rotate(2deg) scale(0.97); }
+    50% { transform: translate(-12px, -6px) rotate(-1.5deg) scale(1.04); }
+    60% { transform: translate(10px, 5px) rotate(1.5deg) scale(0.96); }
+    70% { transform: translate(-8px, -4px) rotate(-1deg) scale(1.02); }
+    80% { transform: translate(6px, 3px) rotate(1deg) scale(0.98); }
+    90% { transform: translate(-4px, -2px) rotate(-0.5deg) scale(1.01); }
+    100% { transform: translate(0, 0) rotate(0) scale(1); }
+}
+
+.screen-shake {
+    animation: screen-shake 1.2s linear;
+}
